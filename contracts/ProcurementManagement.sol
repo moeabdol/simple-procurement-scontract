@@ -5,6 +5,7 @@ contract ProcurementManagement {
     PurchaseOrder[] private purchaseOrders;
 
     struct PurchaseOrder {
+        string name;
         address buyer;
         string rfp;
         string rfpDeadline;
@@ -14,9 +15,11 @@ contract ProcurementManagement {
     }
 
     function createPurchaseOrder(
-        address buyer, string memory rfp, string memory rfpDeadline,
-        string memory bidType, address[] memory sellers) public {
+        string memory name, address buyer, string memory rfp,
+        string memory rfpDeadline, string memory bidType,
+        address[] memory sellers) public {
         PurchaseOrder memory po;
+        po.name = name;
         po.buyer = buyer;
         po.rfp = rfp;
         po.rfpDeadline = rfpDeadline;
