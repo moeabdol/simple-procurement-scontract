@@ -6,17 +6,23 @@ contract ProcurementManagement {
 
     struct PurchaseOrder {
         address buyer;
-        address seller;
-        string name;
         string rfp;
+        string rfpDeadline;
+        string bidType;
+        address[] sellers;
         bool fulfilled;
     }
 
-    function createPurchaseOrder(address buyer, string memory name, string memory rfp) public {
+    function createPurchaseOrder(
+        address buyer, string memory rfp, string memory rfpDeadline,
+        string memory bidType, address[] memory sellers) public {
         PurchaseOrder memory po;
         po.buyer = buyer;
-        po.name = name;
         po.rfp = rfp;
+        po.rfpDeadline = rfpDeadline;
+        po.bidType = bidType;
+        po.sellers = sellers;
+        po.fulfilled = false;
         purchaseOrders.push(po);
     }
 
