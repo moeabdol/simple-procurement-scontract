@@ -3,8 +3,10 @@ pragma experimental ABIEncoderV2;
 
 contract ProcurementManagement {
     PurchaseOrder[] private purchaseOrders;
+    Proposal[] private proposals;
 
     struct PurchaseOrder {
+        uint id;
         string name;
         address buyer;
         string rfp;
@@ -12,6 +14,13 @@ contract ProcurementManagement {
         string bidType;
         address[] sellers;
         bool fulfilled;
+        address winner;
+    }
+
+    struct Proposal {
+        address seller;
+        uint poId;
+        string content;
     }
 
     function createPurchaseOrder(
@@ -20,6 +29,7 @@ contract ProcurementManagement {
         address[] memory sellers
     ) public {
         PurchaseOrder memory po;
+        po.id = purchaseOrders.length + 1;
         po.name = name;
         po.buyer = buyer;
         po.rfp = rfp;
@@ -81,5 +91,14 @@ contract ProcurementManagement {
         }
 
         return pos;
+    }
+
+    function createProposal(address seller, uint poId, string memory content)
+    public {
+        Proposal memory proposal;
+        proposal.seller = seller;
+        proposal.poId = poId;
+        proposal.content = content;
+        proposals.push(proposal);
     }
 }
